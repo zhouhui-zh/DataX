@@ -4,7 +4,7 @@
 
     <groupId>com.alibaba.datax</groupId>
     <artifactId>datax-all</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1-MYSQL8-SNAPSHOT</version>
     <dependencies>
         <dependency>
             <groupId>org.hamcrest</groupId>
@@ -38,7 +38,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
-        <mysql.driver.version>5.1.47</mysql.driver.version>
+        <mysql.driver.version>8.0.29</mysql.driver.version>
     </properties>
 
     <modules>
@@ -276,10 +276,14 @@
         </resources>
         <plugins>
             <plugin>
+                <!--mvn -U clean package assembly:assembly -DskipTests=true-->
+                <!-- 如果 插件报错，参考 https://github.com/alibaba/DataX/issues/2055#issuecomment-2149027378-->
                 <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.2-beta-3</version>
                 <configuration>
-                    <finalName>datax</finalName>
+                    <finalName>datax</finalName> <!-- 归档的文件名称 -->
                     <descriptors>
+                        <!-- 自定义配置的文件，该文件定义如何生成发布包。 -->
                         <descriptor>package.xml</descriptor>
                     </descriptors>
                 </configuration>

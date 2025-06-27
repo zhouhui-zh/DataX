@@ -9,6 +9,7 @@ import com.alibaba.druid.sql.parser.SQLStatementParser;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
 import org.apache.commons.lang3.tuple.Triple;
 import org.slf4j.Logger;
@@ -394,6 +395,7 @@ public final class DBUtil {
             DriverManager.setLoginTimeout(Constant.TIMEOUT_SECONDS);
             return DriverManager.getConnection(url, prop);
         } catch (Exception e) {
+            LOG.info("connect error {}", ExceptionUtils.getStackTrace(e));
             throw RdbmsException.asConnException(dataBaseType, e, prop.getProperty("user"), null);
         }
     }
